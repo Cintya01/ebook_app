@@ -1,4 +1,4 @@
-import 'package:ebook_app/pages/homepage.dart';
+import 'package:ebook_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
+      home: const MainPage(),
     );
   }
 }
