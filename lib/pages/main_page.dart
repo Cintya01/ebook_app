@@ -1,4 +1,5 @@
 import 'package:ebook_app/pages/homepage.dart';
+import 'package:ebook_app/pages/reading.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _widgetPages = [
     HomePage(),
-    Center(child: Text('Page 2')),
+    ReadingPage(),
     Center(child: Text('Page 3')),
   ];
 
@@ -31,42 +32,39 @@ class _MainPageState extends State<MainPage> {
       body: _widgetPages[_selectedIndex],
       bottomNavigationBar: Container(
         width: double.infinity,
-        height: size.height * 0.1,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+        height: size.height * 0.09,
+        color: AppColor.white,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _itemBottomNavigatorMenu(
+                onTap: () {
+                  _onIconTapped(0);
+                },
+                isSelected: _selectedIndex == 0,
+                label: 'Explore',
+                icon: Icons.explore_outlined,
+              ),
+              _itemBottomNavigatorMenu(
+                onTap: () {
+                  _onIconTapped(1);
+                },
+                isSelected: _selectedIndex == 1,
+                label: 'Reading',
+                icon: Icons.book_outlined,
+              ),
+              _itemBottomNavigatorMenu(
+                onTap: () {
+                  _onIconTapped(2);
+                },
+                isSelected: _selectedIndex == 2,
+                label: 'Bookmark',
+                icon: Icons.bookmark_border_rounded,
+              ),
+            ],
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _itemBottomNavigatorMenu(
-              onTap: () {
-                _onIconTapped(0);
-              },
-              isSelected: _selectedIndex == 0,
-              label: 'Explore',
-              icon: Icons.explore_outlined,
-            ),
-            _itemBottomNavigatorMenu(
-              onTap: () {
-                _onIconTapped(1);
-              },
-              isSelected: _selectedIndex == 1,
-              label: 'Reading',
-              icon: Icons.book_outlined,
-            ),
-            _itemBottomNavigatorMenu(
-              onTap: () {
-                _onIconTapped(2);
-              },
-              isSelected: _selectedIndex == 2,
-              label: 'Bookmark',
-              icon: Icons.bookmark_border_rounded,
-            ),
-          ],
         ),
       ),
     );
