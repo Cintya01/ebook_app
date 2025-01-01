@@ -1,3 +1,4 @@
+import 'package:ebook_app/pages/bookmark.dart';
 import 'package:ebook_app/pages/homepage.dart';
 import 'package:ebook_app/pages/reading.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
@@ -16,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _widgetPages = [
     HomePage(),
     ReadingPage(),
-    Center(child: Text('Page 3')),
+    Bookmark(),
   ];
 
   void _onIconTapped(int index) {

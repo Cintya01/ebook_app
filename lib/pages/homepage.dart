@@ -184,7 +184,9 @@ class HomePage extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 10),
-                              CardReading()
+                              CardReading(
+                                pagehost: "HomePage",
+                              )
                             ],
                           ),
                         ))),

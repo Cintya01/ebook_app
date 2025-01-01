@@ -16,7 +16,7 @@ class ReadingPage extends StatelessWidget {
           children: [
             Positioned(
                 child: Container(
-                    height: size.height * 0.9,
+                    height: size.height * 0.875,
                     decoration: BoxDecoration(
                       color: AppColor.darkGreen,
                       borderRadius: BorderRadius.only(
@@ -36,16 +36,23 @@ class ReadingPage extends StatelessWidget {
                                       color: AppColor.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600)),
-                              Icon(Icons.more_horiz, color: AppColor.white),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          CardReading()
+                          SizedBox(
+                            height: size.height * 0.75,
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return CardReading(pagehost: "ReadingPage");
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ))),
             Positioned(
-              top: size.height * 0.85,
+              top: size.height * 0.84,
               bottom: 0,
               child: Container(
                 width: size.width,
