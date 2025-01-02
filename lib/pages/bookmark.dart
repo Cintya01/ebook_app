@@ -1,4 +1,3 @@
-import 'package:ebook_app/pages/homepage.dart';
 import 'package:ebook_app/pages/main_page.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
 import 'package:ebook_app/widgets/book_card.dart';
@@ -37,6 +36,8 @@ class Bookmark extends StatelessWidget {
             return BookCard(
               title: "bookmark",
               author: "b",
+              imageUrl: "imageurl",
+              id: "id"
             );
           },
         ),
