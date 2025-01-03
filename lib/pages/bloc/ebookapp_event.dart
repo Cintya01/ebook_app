@@ -17,8 +17,16 @@ class LoadDetailBookEvent extends EbookappEvent {
   const LoadDetailBookEvent({required this.bookId});
 }
 
-class AddToCartEvent extends EbookappEvent {
-  final BookModel product;
+class ToggleFavorite extends EbookappEvent {
+  final String bookId;
 
-  const AddToCartEvent({required this.product});
+  const ToggleFavorite(this.bookId);
 }
+
+
+
+// class AddToCartEvent extends EbookappEvent {
+//   final BookModel product;
+
+//   const AddToCartEvent({required this.product});
+// }

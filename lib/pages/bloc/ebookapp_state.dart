@@ -23,6 +23,7 @@ enum DetailBooksScreenState {
 
 class EbookappState extends Equatable {
   final List<BookModel> books;
+  final List<BookModel> favorites;
   final HomeScreenState homeScreenState;
   final MoreBooksScreenState moreBooksScreenState;
   final DetailBooksScreenState detailBooksScreenState;
@@ -34,11 +35,13 @@ class EbookappState extends Equatable {
     required this.moreBooksScreenState,
     required this.detailBooksScreenState,
     this.detailBook,
+    required this.favorites,
   });
 
   factory EbookappState.initial() {
     return const EbookappState(
       books: [],
+      favorites: [],
       homeScreenState: HomeScreenState.none,
       moreBooksScreenState: MoreBooksScreenState.none,
       detailBooksScreenState: DetailBooksScreenState.none,
@@ -48,6 +51,7 @@ class EbookappState extends Equatable {
 
   EbookappState copyWith({
     List<BookModel>? books,
+    List<BookModel>? favorites,
     HomeScreenState? homeScreenState,
     MoreBooksScreenState? moreBooksScreenState,
     DetailBooksScreenState? detailBooksScreenState,
@@ -55,6 +59,7 @@ class EbookappState extends Equatable {
   }) {
     return EbookappState(
       books: books ?? this.books,
+      favorites: favorites ?? this.favorites,
       homeScreenState: homeScreenState ?? this.homeScreenState,
       moreBooksScreenState: moreBooksScreenState ?? this.moreBooksScreenState,
       detailBooksScreenState:
@@ -64,6 +69,11 @@ class EbookappState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [books, homeScreenState, moreBooksScreenState, detailBooksScreenState, detailBook ?? ''];
+  List<Object> get props => [
+        books,
+        homeScreenState,
+        moreBooksScreenState,
+        detailBooksScreenState,
+        detailBook ?? ''
+      ];
 }

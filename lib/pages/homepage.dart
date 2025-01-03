@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ebook_app/pages/bloc/ebookapp_bloc.dart';
 import 'package:ebook_app/pages/cart_page.dart';
 import 'package:ebook_app/pages/mantainer.dart';

@@ -1,7 +1,3 @@
-//import 'dart:developer';
-
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:ebook_app/model/book_model.dart';
 import 'package:equatable/equatable.dart';
@@ -21,6 +17,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
     on<LoadBooksEvent>(_onLoadBooksEvent);
     on<LoadMoreBooksEvent>(_onMoreBooksEvent);
     on<LoadDetailBookEvent>(_onDetailBookEvent);
+    on<ToggleFavorite>(_onToggleFavorite);
   }
 
   void _onLoadBooksEvent(
@@ -47,6 +44,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
         imageUrl: b.value['image_url'],
         price: double.parse(b.value['price'].toString()),
         title: b.value['title'],
+        isFavorite: false,
       );
     }).toList();
 
@@ -82,6 +80,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
         imageUrl: b.value['image_url'],
         price: double.parse(b.value['price'].toString()),
         title: b.value['title'],
+        isFavorite: false,
       );
     }).toList();
 
@@ -95,6 +94,8 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
 
   void _onDetailBookEvent(
       LoadDetailBookEvent event, Emitter<EbookappState> emit) async {
+    emit(
+        state.copyWith(detailBooksScreenState: DetailBooksScreenState.loading));
     final bookId = event.bookId;
     try {
       final response = await dio.get('$homeUrl/$bookId.json');
@@ -114,6 +115,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
         author: data['author'],
         imageUrl: data['image_url'],
         price: double.parse(data['price'].toString()),
+        isFavorite: false,
       );
 
       emit(state.copyWith(
@@ -126,5 +128,30 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
         detailBook: null,
       ));
     }
+  }
+
+  void _onToggleFavorite(ToggleFavorite event, Emitter<EbookappState> emit) {
+    final booksForBookmark = state.books.map((b) {
+      if (b.id == event.bookId) {
+        return b.copyWith(isFavorite: !b.isFavorite);
+      }
+      return b;
+    }).toList();
+
+    final updatedBook =
+        booksForBookmark.firstWhere((b) => b.id == event.bookId);
+
+    final favoriteBooks = List<BookModel>.from(state.favorites);
+
+    if (updatedBook.isFavorite) {
+      favoriteBooks.add(updatedBook);
+    } else {
+      favoriteBooks.removeWhere((b) => b.id == updatedBook.id);
+    }
+
+    emit(state.copyWith(
+      books: booksForBookmark,
+      favorites: favoriteBooks,
+    ));
   }
 }

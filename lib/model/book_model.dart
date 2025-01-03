@@ -7,6 +7,7 @@ class BookModel extends Equatable {
   final String imageUrl;
   final double price;
   final int quantity;
+  final bool isFavorite;
 
   const BookModel(
       {required this.id,
@@ -14,7 +15,8 @@ class BookModel extends Equatable {
       required this.author,
       required this.imageUrl,
       required this.price,
-      this.quantity = 1});
+      this.quantity = 1,
+      required this.isFavorite});
 
   BookModel copyWith({
     String? id,
@@ -23,6 +25,7 @@ class BookModel extends Equatable {
     String? imageUrl,
     double? price,
     int? quantity,
+    bool? isFavorite,
   }) {
     return BookModel(
       id: id ?? this.id,
@@ -31,9 +34,11 @@ class BookModel extends Equatable {
       imageUrl: imageUrl ?? this.imageUrl,
       price: price ?? this.price,
       quantity: quantity ?? this.quantity,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
   @override
-  List<Object> get props => [id, title, author, imageUrl, price, quantity];
+  List<Object> get props =>
+      [id, title, author, imageUrl, price, quantity, isFavorite];
 }

@@ -1,7 +1,9 @@
-import 'package:ebook_app/model/book_model.dart';
+import 'dart:developer';
+
 import 'package:ebook_app/pages/bloc/ebookapp_bloc.dart';
 import 'package:ebook_app/pages/main_page.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
+import 'package:ebook_app/widgets/detailpage_rating.dart';
 import 'package:ebook_app/widgets/generic_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,9 +32,8 @@ class Body extends StatelessWidget {
     return BlocBuilder<EbookappBloc, EbookappState>(
       builder: (context, state) {
         if (state.detailBooksScreenState == DetailBooksScreenState.loading) {
-          return Center(child: CircularProgressIndicator());
+          return Material(child: Center(child: CircularProgressIndicator()));
         }
-
         if (state.detailBooksScreenState == DetailBooksScreenState.sucess) {
           final detailBook = state.detailBook;
 
@@ -65,9 +66,8 @@ class Body extends StatelessWidget {
                   }),
               body: Column(
                 children: [
-                  //book
                   SizedBox(
-                    height: size.height * 0.35,
+                    height: size.height * 0.37,
                     child: Container(
                       margin: const EdgeInsets.all(20),
                       width: 150,
@@ -89,9 +89,6 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  // body
-
                   Expanded(
                     child: SizedBox(
                         height: size.height * 0.65,
@@ -104,22 +101,58 @@ class Body extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                            padding: const EdgeInsets.all(30),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                //precio
+                                Text("\$ ${detailBook.price.toString()}",
+                                    style: TextStyle(
+                                        color: AppColor.darkGreen,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                                //nombre, autor y bookmark
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Continue Reading",
-                                        style: TextStyle(
-                                            color: AppColor.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                    Icon(Icons.more_horiz,
-                                        color: AppColor.white),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(detailBook.title,
+                                            style: TextStyle(
+                                                color: AppColor.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600)),
+                                        Text(detailBook.author,
+                                            style: TextStyle(
+                                                color: AppColor.mediumGrey,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    CircleAvatar(
+                                      backgroundColor: detailBook.isFavorite
+                                          ? AppColor.orange
+                                          : AppColor.darkGreen,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            context.read<EbookappBloc>().add(
+                                                ToggleFavorite(detailBook.id));
+                                          },
+                                          icon: Icon(Icons.bookmark),
+                                          color: AppColor.white,
+                                          iconSize: 20),
+                                    ),
                                   ],
                                 ),
+                                //rating estatico
+                                const SizedBox(height: 20),
+                                DetailpageRating(),
+                                // botones
+                                const SizedBox(height: 20),
+                                _bottomButtons(),
                               ],
                             ),
                           ),
@@ -130,8 +163,61 @@ class Body extends StatelessWidget {
             ),
           );
         }
-        return Container();
+        return SizedBox();
       },
+    );
+  }
+
+  Widget _bottomButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          height: 38,
+          width: 200,
+          color: AppColor.lightGrey,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "QTY",
+                style: TextStyle(
+                    color: AppColor.mediumGrey, fontWeight: FontWeight.w600),
+              ),
+              Text("|",
+                  style: TextStyle(fontSize: 20, color: AppColor.mediumGrey)),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.remove),
+                color: AppColor.mediumGrey,
+              ),
+              Text("1",
+                  style: TextStyle(
+                      color: AppColor.darkGreen, fontWeight: FontWeight.w700)),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.add),
+                color: AppColor.mediumGrey,
+              ),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColor.orange,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () {},
+          child: Text("Add to Cart",
+              style: TextStyle(
+                  color: AppColor.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600)),
+        )
+      ],
     );
   }
 }
