@@ -23,10 +23,40 @@ class ToggleFavorite extends EbookappEvent {
   const ToggleFavorite(this.bookId);
 }
 
+class IncreaseQuantityDetailEvent extends EbookappEvent {
+  final BookModel productBook;
 
+  const IncreaseQuantityDetailEvent({required this.productBook});
+}
 
-// class AddToCartEvent extends EbookappEvent {
-//   final BookModel product;
+class DecreaseQuantityDetailEvent extends EbookappEvent {
+  final BookModel productBook;
 
-//   const AddToCartEvent({required this.product});
-// }
+  const DecreaseQuantityDetailEvent({required this.productBook});
+}
+
+class AddToCartEvent extends EbookappEvent {
+  final BookModel productBook;
+
+  const AddToCartEvent({required this.productBook});
+}
+
+class LoadCartItemsEvent extends EbookappEvent {}
+
+class RemoveFromCartEvent extends EbookappEvent {
+  final BookModel productBook;
+
+  const RemoveFromCartEvent({required this.productBook});
+}
+
+class IncreaseQuantityCartEvent extends EbookappEvent {
+  final BookModel productBook;
+
+  const IncreaseQuantityCartEvent({required this.productBook});
+}
+
+class DecreaseQuantityCartEvent extends EbookappEvent {
+  final BookModel productBook;
+
+  const DecreaseQuantityCartEvent({required this.productBook});
+}

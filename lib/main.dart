@@ -1,5 +1,5 @@
 import 'package:ebook_app/pages/bloc/ebookapp_bloc.dart';
-import 'package:ebook_app/pages/main_page.dart';
+import 'package:ebook_app/pages/primary_pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

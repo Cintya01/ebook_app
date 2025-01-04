@@ -1,7 +1,7 @@
 import 'package:ebook_app/pages/bloc/ebookapp_bloc.dart';
-import 'package:ebook_app/pages/cart_page.dart';
-import 'package:ebook_app/pages/mantainer.dart';
-import 'package:ebook_app/pages/more_books.dart';
+import 'package:ebook_app/pages/secondary_pages/cart_page.dart';
+import 'package:ebook_app/pages/secondary_pages/mantainer.dart';
+import 'package:ebook_app/pages/secondary_pages/more_books.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
 import 'package:ebook_app/widgets/book_card.dart';
 import 'package:ebook_app/widgets/card_reading.dart';

@@ -1,4 +1,4 @@
-import 'package:ebook_app/pages/main_page.dart';
+import 'package:ebook_app/pages/primary_pages/main_page.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
 import 'package:ebook_app/widgets/generic_app_bar.dart';
 import 'package:flutter/material.dart';

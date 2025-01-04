@@ -1,6 +1,6 @@
-import 'package:ebook_app/pages/bookmark.dart';
-import 'package:ebook_app/pages/homepage.dart';
-import 'package:ebook_app/pages/reading.dart';
+import 'package:ebook_app/pages/primary_pages/bookmark.dart';
+import 'package:ebook_app/pages/primary_pages/homepage.dart';
+import 'package:ebook_app/pages/primary_pages/reading.dart';
 import 'package:ebook_app/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 

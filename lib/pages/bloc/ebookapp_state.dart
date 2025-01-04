@@ -23,18 +23,20 @@ enum DetailBooksScreenState {
 
 class EbookappState extends Equatable {
   final List<BookModel> books;
+  final List<BookModel> detailBooks;
   final List<BookModel> favorites;
+  final List<BookModel> cart;
   final HomeScreenState homeScreenState;
   final MoreBooksScreenState moreBooksScreenState;
   final DetailBooksScreenState detailBooksScreenState;
-  final BookModel? detailBook;
 
   const EbookappState({
     required this.books,
     required this.homeScreenState,
     required this.moreBooksScreenState,
     required this.detailBooksScreenState,
-    this.detailBook,
+    required this.detailBooks,
+    required this.cart,
     required this.favorites,
   });
 
@@ -42,20 +44,22 @@ class EbookappState extends Equatable {
     return const EbookappState(
       books: [],
       favorites: [],
+      detailBooks: [],
       homeScreenState: HomeScreenState.none,
       moreBooksScreenState: MoreBooksScreenState.none,
       detailBooksScreenState: DetailBooksScreenState.none,
-      detailBook: null,
+      cart: [],
     );
   }
 
   EbookappState copyWith({
     List<BookModel>? books,
     List<BookModel>? favorites,
+    List<BookModel>? detailBooks,
+    List<BookModel>? cart,
     HomeScreenState? homeScreenState,
     MoreBooksScreenState? moreBooksScreenState,
     DetailBooksScreenState? detailBooksScreenState,
-    BookModel? detailBook,
   }) {
     return EbookappState(
       books: books ?? this.books,
@@ -64,7 +68,8 @@ class EbookappState extends Equatable {
       moreBooksScreenState: moreBooksScreenState ?? this.moreBooksScreenState,
       detailBooksScreenState:
           detailBooksScreenState ?? this.detailBooksScreenState,
-      detailBook: detailBook ?? this.detailBook,
+      detailBooks: detailBooks ?? this.detailBooks,
+      cart: cart ?? this.cart,
     );
   }
 
@@ -74,6 +79,7 @@ class EbookappState extends Equatable {
         homeScreenState,
         moreBooksScreenState,
         detailBooksScreenState,
-        detailBook ?? ''
+        detailBooks,
+        cart,
       ];
 }
