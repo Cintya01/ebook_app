@@ -245,9 +245,8 @@ class Body extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            context
-                .read<EbookappBloc>()
-                .add(AddToCartEvent(productBook: detailBook));
+            context.read<EbookappBloc>().add(AddToCartEvent(
+                productBook: detailBook, detailBook: detailBook));
           },
           child: Text("Add to Cart",
               style: TextStyle(

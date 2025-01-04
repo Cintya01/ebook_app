@@ -48,13 +48,56 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.only(right: 15),
             child: Row(
               children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => CartPage()));
-                    },
-                    icon: Icon(Icons.shopping_bag_outlined,
-                        size: iconSize, color: AppColor.darkGrey)),
+                BlocBuilder<EbookappBloc, EbookappState>(
+                  builder: (context, state) {
+                    if (state.cart.isEmpty) {
+                      return IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartPage()));
+                          },
+                          icon: Icon(Icons.shopping_bag_outlined,
+                              size: iconSize, color: AppColor.darkGrey));
+                    }
+                    final total =
+                        state.cart.fold(0, (sum, p) => sum + p.quantity);
+                    return Stack(children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartPage()));
+                          },
+                          icon: Icon(Icons.shopping_bag_outlined,
+                              size: iconSize, color: AppColor.darkGrey)),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                            color: AppColor.black,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              total.toString(),
+                              style: TextStyle(
+                                color: AppColor.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]);
+                  },
+                ),
                 const SizedBox(width: 10),
                 CircleAvatar(
                   backgroundColor: AppColor.orange,

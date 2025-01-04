@@ -190,7 +190,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
   void _onDecreaseQuantityDetailEvent(
       DecreaseQuantityDetailEvent event, Emitter<EbookappState> emit) {
     final update = state.detailBooks.map((p) {
-      if (p.id == event.productBook.id) {
+      if (p.id == event.productBook.id && p.quantity > 1) {
         return p.copyWith(quantity: p.quantity - 1);
       }
       return p;
@@ -227,12 +227,13 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
   void _onAddToCartEvent(
       AddToCartEvent event, Emitter<EbookappState> emit) async {
     final BookModel productBook = event.productBook;
+    final BookModel detailBook = event.detailBook;
 
     final existItemIndex = state.cart.indexWhere((b) => b.id == productBook.id);
 
     if (existItemIndex >= 0) {
       final productItem = state.cart[existItemIndex];
-      final newQuantity = productItem.quantity + 1;
+      final newQuantity = productItem.quantity + detailBook.quantity;
 
       await dio.patch(
         "$cartUrl/${productBook.id}.json",
@@ -254,7 +255,7 @@ class EbookappBloc extends Bloc<EbookappEvent, EbookappState> {
           "author": productBook.author,
           "price": productBook.price,
           "imageUrl": productBook.imageUrl,
-          "quantity": 1,
+          "quantity": detailBook.quantity,
         },
       );
       final updateCart = [...state.cart, productBook];

@@ -37,8 +37,9 @@ class DecreaseQuantityDetailEvent extends EbookappEvent {
 
 class AddToCartEvent extends EbookappEvent {
   final BookModel productBook;
+  final BookModel detailBook;
 
-  const AddToCartEvent({required this.productBook});
+  const AddToCartEvent({required this.productBook, required this.detailBook});
 }
 
 class LoadCartItemsEvent extends EbookappEvent {}
